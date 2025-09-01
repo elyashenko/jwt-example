@@ -1,0 +1,7 @@
+{
+  "preset": "angular",
+  "tagPrefix": "v",
+  "bumpFiles": ["package.json", "package-lock.json"],
+  "changelog": true,
+  "infile": "CHANGELOG.md"
+}
