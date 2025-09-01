@@ -155,7 +155,7 @@ export class JWTExamples {
       console.log('   Refresh token verified:', refreshPayload.userId);
       
       // Генерируем новый access токен
-      const newAccessToken = jwtService.generateAccessToken({
+      const _newAccessToken = jwtService.generateAccessToken({
         userId: refreshPayload.userId,
         email: userData.email,
         role: userData.role

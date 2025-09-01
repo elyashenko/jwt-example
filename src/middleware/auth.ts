@@ -30,7 +30,7 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
     const payload = jwtService.verifyAccessToken(token);
     req.user = payload;
     next();
-  } catch (error) {
+  } catch (_) {
     res.status(403).json({
       success: false,
       error: 'Invalid or expired access token'

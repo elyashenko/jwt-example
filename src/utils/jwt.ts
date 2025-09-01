@@ -1,4 +1,4 @@
-import jwt, { SignOptions, VerifyOptions } from 'jsonwebtoken';
+import jwt, { SignOptions } from 'jsonwebtoken';
 import { JWTPayload, RefreshTokenPayload } from '../types';
 
 export class JWTService {
@@ -47,7 +47,7 @@ export class JWTService {
         issuer: 'jwt-typescript-project',
         audience: 'users'
       }) as JWTPayload;
-    } catch (error) {
+    } catch (_) {
       throw new Error('Invalid access token');
     }
   }
@@ -61,7 +61,7 @@ export class JWTService {
         issuer: 'jwt-typescript-project',
         audience: 'users'
       }) as RefreshTokenPayload;
-    } catch (error) {
+    } catch (_) {
       throw new Error('Invalid refresh token');
     }
   }
@@ -69,10 +69,10 @@ export class JWTService {
   /**
    * Декодирует JWT токен без проверки подписи
    */
-  decodeToken(token: string): any {
+  decodeToken(token: string): unknown {
     try {
       return jwt.decode(token);
-    } catch (error) {
+    } catch (_) {
       throw new Error('Invalid token format');
     }
   }
@@ -82,12 +82,12 @@ export class JWTService {
    */
   isTokenExpired(token: string): boolean {
     try {
-      const decoded = jwt.decode(token) as any;
+      const decoded = jwt.decode(token) as { exp?: number };
       if (!decoded || !decoded.exp) return true;
       
       const currentTime = Math.floor(Date.now() / 1000);
       return decoded.exp < currentTime;
-    } catch (error) {
+    } catch (_) {
       return true;
     }
   }
@@ -97,11 +97,11 @@ export class JWTService {
    */
   getTokenExpirationTime(token: string): Date | null {
     try {
-      const decoded = jwt.decode(token) as any;
+      const decoded = jwt.decode(token) as { exp?: number };
       if (!decoded || !decoded.exp) return null;
       
       return new Date(decoded.exp * 1000);
-    } catch (error) {
+    } catch (_) {
       return null;
     }
   }

@@ -58,7 +58,7 @@ app.use('*', (req, res) => {
 });
 
 // Middleware для обработки ошибок
-app.use((error: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((error: Error, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
   console.error('Error:', error);
   
   res.status(500).json({

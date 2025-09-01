@@ -90,7 +90,7 @@ describe('JWT Service Tests', () => {
   describe('decodeToken', () => {
     it('should decode token without verification', () => {
       const token = jwtService.generateAccessToken(testPayload);
-      const decoded = jwtService.decodeToken(token);
+      const decoded = jwtService.decodeToken(token) as any;
       
       expect(decoded.userId).toBe(testPayload.userId);
       expect(decoded.email).toBe(testPayload.email);

@@ -78,7 +78,7 @@ export class UserService {
     const user = await userStore.createUser(userData);
     
     // Возвращаем пользователя без пароля
-    const { password, ...userWithoutPassword } = user;
+    const { password: _password, ...userWithoutPassword } = user;
     return userWithoutPassword;
   }
 
@@ -112,7 +112,7 @@ export class UserService {
     await userStore.saveRefreshToken(tokenId, user.id);
 
     // Возвращаем ответ
-    const { password, ...userWithoutPassword } = user;
+    const { password: _password, ...userWithoutPassword } = user;
     return {
       accessToken,
       refreshToken,
@@ -148,7 +148,7 @@ export class UserService {
       });
 
       return { accessToken };
-    } catch (error) {
+    } catch (_) {
       throw new Error('Invalid refresh token');
     }
   }
@@ -160,7 +160,7 @@ export class UserService {
     try {
       const payload = jwtService.verifyRefreshToken(refreshToken);
       await userStore.removeRefreshToken(payload.tokenId);
-    } catch (error) {
+    } catch (_) {
       // Игнорируем ошибки при выходе
     }
   }
@@ -174,7 +174,7 @@ export class UserService {
       return null;
     }
 
-    const { password, ...userWithoutPassword } = user;
+    const { password: _password, ...userWithoutPassword } = user;
     return userWithoutPassword;
   }
 
@@ -193,7 +193,7 @@ export class UserService {
     // Сохраняем обновленного пользователя
     userStore.updateUser(userId, user);
 
-    const { password, ...userWithoutPassword } = user;
+    const { password: _password, ...userWithoutPassword } = user;
     return userWithoutPassword;
   }
 

@@ -140,7 +140,7 @@ export class AuthController {
       };
 
       res.status(200).json(response);
-    } catch (error) {
+    } catch (_) {
       // При выходе игнорируем ошибки
       const response: ApiResponse = {
         success: true,
